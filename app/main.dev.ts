@@ -16,6 +16,11 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 
+const {ipcMain}  = require('electron')
+
+
+
+
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -58,8 +63,8 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    width: 1400,
+    height: 708,
     webPreferences:
       (process.env.NODE_ENV === 'development' ||
         process.env.E2E_BUILD === 'true') &&
@@ -100,9 +105,7 @@ const createWindow = async () => {
   new AppUpdater();
 };
 
-/**
- * Add event listeners...
- */
+const foo = require('./main/main')
 
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even

@@ -1,0 +1,12 @@
+.qw {
+  display: inline;
+  vertical-align: middle;
+  width: 30px;
+  margin: 10px 10px 10px;
+}
+
+.con {
+  display: inline;
+  margin: 10px 10px 10px;
+
+}
