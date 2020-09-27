@@ -8,5 +8,25 @@
 .con {
   display: inline;
   margin: 10px 10px 10px;
+}
 
+.item {
+  margin-left: 40px;
+  list-style-type: circle;
+}
+
+.uii {
+  /* padding-left: 40px; */
+}
+.ug {
+  width: 150px;
+
+}
+
+button {
+  margin: 10px 100px 10px;
+  width: 200px;
+  height: 30px;
+  font-weight: bold;
+  /* background-color: green; */
 }
