@@ -87,7 +87,7 @@ const App = () => {
 
     })
     .catch(e => {
-      console.log(e)
+      // console.log(e)
       setBad(true)
       setMessage('Błędny NIP lub nie istnieje na liście')
       setTimeout(() => {
@@ -182,10 +182,10 @@ const App = () => {
       <hr></hr>
       <h1 style={bad ? {color: "red"}: {color: "lightgreen"}}>{message}</h1>
 
-      {/* <h2>9151806303</h2>
+      <h2>9151806303</h2>
       <h2>9130004136</h2>
 
-      <h2>23105015751000009248349095</h2> */}
+      <h2>23105015751000009248349095</h2>
 
     </div>
   )
