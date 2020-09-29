@@ -1,10 +1,10 @@
 const { ipcRenderer }  = require('electron')
 import React, {useState, useEffect} from 'react';
-
-
 import styles from './App.css'
-
 import infoService from './services/info'
+
+import History from './components/History'
+
 const App = () => {
 
   const [response, setResponse]:any = useState({});
@@ -186,9 +186,8 @@ const App = () => {
       <h2>9130004136</h2>
 
       <h2>23105015751000009248349095</h2>
-      <button onClick={() => {
-        ipcRenderer.send('test', ':)')
-      }}>click</button>
+
+      <History/>
 
     </div>
   )

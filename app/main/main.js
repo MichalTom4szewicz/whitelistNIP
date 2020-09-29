@@ -1,4 +1,4 @@
-const {ipcMain}  = require('electron')
+const {ipcMain}  = require('electron-better-ipc')
 const fs = require('fs');
 const crypto = require('crypto')
 const readline = require('readline');
@@ -19,12 +19,15 @@ const decrypt = (encrypted) => {
   return text
 }
 
-
 const createFileWithData = (fileName, data) => {
   fs.writeFile(fileName, data, function (err) {
     if (err) return console.log(err);
     console.log('saved')
   });
+}
+
+const sendDataToDisplay = data => {
+  ipcMain.sendToRenderers('data-to-display', data)
 }
 
 ipcMain.on('data', (event, arg) => {
@@ -52,28 +55,6 @@ ipcMain.on('data', (event, arg) => {
 
   const finalString = data.nip+';'+data.two+';'+data.four+';'+data.account+';'+data.result+';'+data.date
 
-  // fs.readFile(`${month}-${year}_WHResults.txt`, 'utf8' , (err, data) => {
-
-  //   let dec = decrypt(data) //.replace(/[^\x20-\x7E]/g, '')
-
-  //   let d = Array.from(dec.split(','))
-
-  //   d.push(finalString.toString())
-  //   console.log(d)
-  //   const enc = encrypt(d.toString())
-
-  //   fs.writeFile(`${month}-${year}_WHResults.txt`, enc, function (err) {
-  //     if (err) return console.log(err);
-  //     console.log('saved')
-  //     return
-  //   });
-
-  //   console.log('skonczyl')
-  //   return
-  // })
-
-
-
   fs.readFile(`${month}-${year}_WHResults.txt`, 'utf8' , (err, data) => {
 
     if(err) {
@@ -83,6 +64,7 @@ ipcMain.on('data', (event, arg) => {
         let d = []
         d.push(finalString)
         console.log(d)
+        sendDataToDisplay(d)
 
         const enc = encrypt(d.toString())
         createFileWithData(`${month}-${year}_WHResults.txt`, enc)
@@ -92,6 +74,7 @@ ipcMain.on('data', (event, arg) => {
       let d = Array.from(dec.split(','))
       d.push(finalString)
       console.log(d)
+      sendDataToDisplay(d)
 
       const enc = encrypt(d.toString())
       createFileWithData(`${month}-${year}_WHResults.txt`, enc)
