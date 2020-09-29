@@ -110,6 +110,9 @@ const App = () => {
 
   useEffect(() => {
     // ipcRenderer.send('data', ':)' )
+    ipcRenderer.on('wrong', (event, arg) => {
+      window.alert('Naruszona integralnośc pliku')
+    })
   }, []);
 
   return (

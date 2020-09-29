@@ -12,11 +12,16 @@ const encrypt = (text) => {
 }
 
 const decrypt = (encrypted) => {
+  try {
   const deKey = crypto.createDecipher('aes-128-cbc', 'dupa');
   let text = deKey.update(encrypted, 'hex', 'utf8')
   text += deKey.final('utf8');
 
   return text
+  }catch(e) {
+    ipcMain.sendToRenderers('wrong', ':)')
+    return false
+  }
 }
 
 const createFileWithData = (fileName, data) => {
@@ -71,13 +76,16 @@ ipcMain.on('data', (event, arg) => {
       });
     } else {
       let dec = decrypt(data)
-      let d = Array.from(dec.split(','))
-      d.push(finalString)
+      let d =  dec ? Array.from(dec.split(',')) : null
+      if(d){
+        d.push(finalString)
       console.log(d)
       sendDataToDisplay(d)
 
       const enc = encrypt(d.toString())
       createFileWithData(`${month}-${year}_WHResults.txt`, enc)
+      }
+
     }
   })
 })
