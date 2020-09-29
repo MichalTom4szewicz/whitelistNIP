@@ -186,6 +186,9 @@ const App = () => {
       <h2>9130004136</h2>
 
       <h2>23105015751000009248349095</h2>
+      <button onClick={() => {
+        ipcRenderer.send('test', ':)')
+      }}>click</button>
 
     </div>
   )
