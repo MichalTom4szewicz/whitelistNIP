@@ -30,3 +30,12 @@ button {
   font-weight: bold;
   /* background-color: green; */
 }
+
+.his {
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.cont {
+  height: 800px;
+}

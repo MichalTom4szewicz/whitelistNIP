@@ -24,6 +24,21 @@ const App = () => {
 
   const [bad, setBad] = useState(false);
 
+  const [click, setClick] = useState(false);
+
+  const listContains =(list, two, four) => {
+
+    console.log('list')
+    for(let i=0; i<list.length; i++) {
+      console.log(list[i])
+      if(list[i].toString().startsWith(two.toString()) && list[i].toString().slice(22) === four.toString()) {
+        console.log('dupa')
+        return {odp:true, acc: list[i]}
+      }
+    }
+    return false
+  }
+
   const handleSubmit = (event:any) => {
     event.preventDefault()
 
@@ -43,45 +58,43 @@ const App = () => {
 
       const ob = res.result.subject
 
-      // setBAcc(res.result.subject.accountNumbers[0])
-
-      let bac= null
+      let bacList= null
       if(ob.accountNumbers.length !== 0) {
-        bac = res.result.subject.accountNumbers[0].toString()
+        bacList = res.result.subject.accountNumbers
       } else {
         setMes(' brak rachunku')
       }
 
-
-
-      // console.log('aaaaa', res.result.subject.requestDateTime)
-
-      // infoService
-      // .getByNIPACC(nip, res.result.subject.accountNumbers[0])
-      // .then(res => {
-      //   setResponse1(res.result)
-      // })
-
       let mes
-      if(bac !== null) {
-        if(bac.startsWith(two.toString()) && bac.slice(22) === four.toString()) {
+      let object
+      if(bacList !== null) {
+        const wyn = listContains(bacList, two, four)
+        if(typeof(wyn) === 'object') {
           setMessage('zweryfikowano poprawnie')
           mes = 'poprawnie'
           setBad(false)
+          object ={
+            nip: nip,
+            two: two,
+            four: four,
+            account: bacList === null ? 'brak_NRB' :wyn.acc,
+            result:  bacList === null ? 'brak_NRB' :mes
+          }
         } else {
           setMessage('niezgodność podanych elementów NRB')
           mes = 'niezgodnosc'
           setBad(true)
+          object ={
+            nip: nip,
+            two: two,
+            four: four,
+            account: bacList === null ? 'brak_NRB' : res.result.subject.accountNumbers[0],
+            result:  bacList === null ? 'brak_NRB' :mes
+          }
         }
       }
 
-      const object = {
-        nip: nip,
-        two: two,
-        four: four,
-        account: bac === null ? 'brak_NRB' :res.result.subject.accountNumbers[0],
-        result:  bac === null ? 'brak_NRB' :mes
-      }
+      // const object =
       ipcRenderer.send('data', object )
 
 
@@ -94,7 +107,6 @@ const App = () => {
         setMessage('')
       }, 10000)
     })
-
   }
 
 
@@ -116,7 +128,7 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <div className={styles.cont}>
       <form >
         <h5 className={styles.con}>wpisz nip</h5>
         <input maxLength={10} placeholder="nip" value={nip} onChange={e => setNip(e.target.value)}></input>
@@ -185,12 +197,20 @@ const App = () => {
       <hr></hr>
       <h1 style={bad ? {color: "red"}: {color: "lightgreen"}}>{message}</h1>
 
-      <h2>9151806303</h2>
+      <button onClick={() => setClick(c => !c)}>{click ? 'Ukryj plik' : 'Pokaz plik'}</button>
+
+      {/* <h2>9151806303</h2>
       <h2>9130004136</h2>
 
-      <h2>23105015751000009248349095</h2>
+      <h2>8650003177</h2>
 
-      <History/>
+      <h2>23105015751000009248349095</h2> */}
+
+
+      <div className={styles.his} style={click ? {display: "block"} : {display: "none"}} >
+        <History />
+      </div>
+
 
     </div>
   )
