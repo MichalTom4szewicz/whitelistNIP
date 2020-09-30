@@ -92,11 +92,17 @@ const App = () => {
             result:  bacList === null ? 'brak_NRB' :mes
           }
         }
+        ipcRenderer.send('data', object )
+      } else {
+        const ob  ={
+          nip: nip,
+          two: two,
+          four: four,
+          account: 'brak_NRB',
+          result: 'brak_NRB'
+        }
+        ipcRenderer.send('data', ob )
       }
-
-      // const object =
-      ipcRenderer.send('data', object )
-
 
     })
     .catch(e => {

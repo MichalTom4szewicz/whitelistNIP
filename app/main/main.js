@@ -78,12 +78,14 @@ ipcMain.on('data', (event, arg) => {
       let dec = decrypt(data)
       let d =  dec ? Array.from(dec.split(',')) : null
       if(d){
-        d.push(finalString)
-      console.log(d)
-      sendDataToDisplay(d)
+        // for(let i =0; i<10000; i++) {
+          d.push(finalString)
+        // }
+        console.log(d)
+        sendDataToDisplay(d)
 
-      const enc = encrypt(d.toString())
-      createFileWithData(`${month}-${year}_WHResults.txt`, enc)
+        const enc = encrypt(d.toString())
+        createFileWithData(`${month}-${year}_WHResults.txt`, enc)
       }
 
     }
