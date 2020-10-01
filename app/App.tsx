@@ -30,7 +30,7 @@ const App = () => {
 
     console.log('list')
     for(let i=0; i<list.length; i++) {
-      console.log(list[i])
+      // console.log(list[i])
       if(list[i].toString().startsWith(two.toString()) && list[i].toString().slice(22) === four.toString()) {
         console.log('dupa')
         return {odp:true, acc: list[i]}
@@ -185,13 +185,15 @@ const App = () => {
           </tbody>
         </table>
 
-        <ul>
-          {response.accountNumbers !== undefined ? response.accountNumbers.map((an:any, i:any) => {
-            return (
-              <li className={styles.item} key={i}>{an}</li>
-            )
-          }) : ''}
-        </ul>
+        <div className={styles.accnts}>
+          <ul>
+            {response.accountNumbers !== undefined ? response.accountNumbers.map((an:any, i:any) => {
+              return (
+                <li className={styles.item} key={i}>{an}</li>
+              )
+            }) : ''}
+          </ul>
+        </div>
 
       </div>
 

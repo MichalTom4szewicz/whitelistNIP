@@ -39,3 +39,8 @@ button {
 .cont {
   height: 800px;
 }
+
+.accnts {
+  max-height: 200px;
+  overflow-y: scroll;
+}

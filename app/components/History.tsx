@@ -33,6 +33,7 @@ export default function History(): JSX.Element {
             <th>RACHUNEK</th>
             <th>STATUS</th>
             <th>DATA</th>
+            <th>HOST</th>
           </tr>
         </thead>
 
